@@ -72,7 +72,7 @@ class App < Sinatra::Application
 
   configure :production do
     set :static, false
-    set :docs_host, '//docs.devdocs.io'
+    set :docs_host, '//devdocs-poc.herokuapp.com'
     set :csp, "default-src 'self' *; script-src 'self' 'nonce-devdocs' http://cdn.devdocs.io https://cdn.devdocs.io https://www.google-analytics.com https://secure.gaug.es http://*.jquery.com https://*.jquery.com; font-src data:; style-src 'self' 'unsafe-inline' *; img-src 'self' * data:;"
 
     use Rack::ConditionalGet
@@ -92,7 +92,7 @@ class App < Sinatra::Application
 
     Sprockets::Helpers.configure do |config|
       config.digest = true
-      config.asset_host = 'cdn.devdocs.io'
+      config.asset_host = 'devdocs-poc.herokuapp.com'
       config.manifest = Sprockets::Manifest.new(sprockets, assets_manifest_path)
     end
   end
