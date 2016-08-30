@@ -15,15 +15,15 @@ module Docs
       # add additional entries for methods
       def additional_entries
         result = []
-        # doc.xpath("//table[tbody/tr/th/font/b[text()='Method Summary']]/tbody/tr[position()>1]").each do |row|
-        doc.xpath("//table[position()>1]//tbody").each do |row|
-          static = row.xpath("//td[1]").text.include?("static")
-          methName = row.xpath("//td[2]/code/b/a").text
+        doc.xpath("//table[.//b[text()='Method Summary']]/tr[position()>1]").each do |row|
+          
+          static = row.xpath(".//td[1]").text.include?("static")
+          methName = row.xpath(".//td[2]/code/b/a").text
+          methHash = row.xpath(".//td[2]/code/b/a/@href").text.strip.gsub(/.*\#/, "")
+          
           type = slug.gsub(/((?:\w+\/)+).*/, "\\1").chomp("/").gsub("/", ".")
           
-          puts static
-          puts methName
-          puts type
+          result.push([slug.gsub(/(\w+\/)+/, "") + (static ? "#" : ".") + methName, methHash])
         end
         
         result
